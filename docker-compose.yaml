@@ -15,9 +15,9 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     # network_mode: bridge
 
-  letsencrypt-companion:
-    image: nginxproxy/docker-letsencrypt-nginx-proxy-companion
-    container_name: nginx-proxy-letsencrypt
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-acme
     environment:
       - DEFAULT_EMAIL=mxschardt@gmail.com
     volumes_from:
@@ -28,11 +28,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     # network_mode: bridge
 
-  ping:
+  ping-pong:
     build: ./ping-pong
     restart: always
     ports:
-      - "80:80"
+      - "91:80"
     environment:
       VIRTUAL_HOST: mxschardt.ru
       LETSENCRYPT_HOST: mxschardt.ru
